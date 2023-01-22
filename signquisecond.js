@@ -8,7 +8,8 @@
     const answers = document.querySelectorAll('#answers > li');
     const result = document.getElementById('result');
     const scorelabel = document.querySelector('#result > p');
-
+    
+    //以下の配列に画像の保存先パスを組み込む？
     const quizset = [
         {n:'1問目',q:'what is a?',a:['A','B','C'],e:'正解は、Aです',},
         {n:'2問目',q:'what is b?',a:['B','A','C'],e:'正解は、Bです',},
@@ -43,7 +44,10 @@
 
         number.textContent = quizset[currentNum].n;
         questioncontents.textContent = quizset[currentNum].q;
-
+        
+        
+        //以下のif文をリファクタリングしたい。
+        //questionimage.innerHTML = '<img src="quizset[currentNum].img">'と記載してみたが、HTML上に画像は表示されず
        if(number.textContent===quizset[0].n){
             quizimage.innerHTML = '<img src="./signquizimage/IMG_1173.jpg">'
             }else if(number.textContent===quizset[1].n){
@@ -56,6 +60,8 @@
                 quizimage.innerHTML = '<img src="./signquizimage/IMG_0426.jpg">'
             }
 
+        
+        
         shuffledAnswers = shuffle(quizset[currentNum].a.slice());
 
         isAnswered = false;
