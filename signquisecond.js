@@ -1,21 +1,18 @@
 (function(){
     'use strict';
 
-    const questioncontents = document.getElementById('questioncontents');
-    const number = document.getElementById('number');
     const quizimage = document.getElementById('quizimage');
     const btn = document.getElementById('btn');
-    const answers = document.querySelectorAll('#answers > li');
     const result = document.getElementById('result');
     const scorelabel = document.querySelector('#result > p');
     
     //以下の配列に画像の保存先パスを組み込む？
     const quizset = [
-        {n:'1問目',q:'what is a?',a:['A','B','C'],e:'正解は、Aです',},
-        {n:'2問目',q:'what is b?',a:['B','A','C'],e:'正解は、Bです',},
-        {n:'3問目',q:'what is c?',a:['C','B','A'],e:'正解は、Cです',},
-        {n:'4問目',q:'what is d?',a:['A','B','C'],e:'正解は、Aです',},
-        {n:'5問目',q:'what is e?',a:['B','C','A'],e:'正解は、Bです',},
+        {n:'1問目',q:'what is a?',a:['A','B','C'],e:'正解は、Aです',img:'<img src="./signquizimage/IMG_1173.jpg">'},
+        {n:'2問目',q:'what is b?',a:['B','A','C'],e:'正解は、Bです',img:'<img src="./signquizimage/IMG_0423.jpg">'},
+        {n:'3問目',q:'what is c?',a:['C','B','A'],e:'正解は、Cです',img:'<img src="./signquizimage/IMG_1170.jpg">'},
+        {n:'4問目',q:'what is d?',a:['A','B','C'],e:'正解は、Aです',img:'<img src="./signquizimage/IMG_0432.jpg">'},
+        {n:'5問目',q:'what is e?',a:['B','C','A'],e:'正解は、Bです',img:'<img src="./signquizimage/IMG_0426.jpg">'},
     ];
     
     let currentNum = 0;
@@ -39,35 +36,19 @@
 
     
     function setquiz(){
-        
-        let i;
+        var number = document.getElementById('number');
+        var questioncontents = document.getElementById('questioncontents');
 
         number.textContent = quizset[currentNum].n;
         questioncontents.textContent = quizset[currentNum].q;
-        
-        
-        //以下のif文をリファクタリングしたい。
-        //questionimage.innerHTML = '<img src="quizset[currentNum].img">'と記載してみたが、HTML上に画像は表示されず
-       if(number.textContent===quizset[0].n){
-            quizimage.innerHTML = '<img src="./signquizimage/IMG_1173.jpg">'
-            }else if(number.textContent===quizset[1].n){
-                quizimage.innerHTML = '<img src="./signquizimage/IMG_0423.jpg">'
-            }else if(number.textContent===quizset[2].n){
-                quizimage.innerHTML = '<img src="./signquizimage/IMG_1170.jpg">'
-            }else if(number.textContent===quizset[3].n){
-                quizimage.innerHTML = '<img src="./signquizimage/IMG_0432.jpg">'
-            }else if(number.textContent===quizset[4].n){
-                quizimage.innerHTML = '<img src="./signquizimage/IMG_0426.jpg">'
-            }
-
-        
-        
+        quizimage.innerHTML = quizset[currentNum].img;
         shuffledAnswers = shuffle(quizset[currentNum].a.slice());
 
         isAnswered = false;
 
+        const answers = document.querySelectorAll('#answers > li');
 
-        for(i=0;i<answers.length;i++){
+        for(var i = 0; i < answers.length;i++){
             answers[i].classList.remove('correct');
             answers[i].classList.remove('wrong');
             answers[i].textContent = shuffledAnswers[i];
@@ -79,8 +60,8 @@
         }
 
     function setEvents(){
-        let i; 
-        for(i=0;i<answers.length;i++){
+        var answers = document.querySelectorAll('#answers > li');
+        for(let i=0;i<answers.length;i++){
             answers[i].addEventListener('click',function(){
                 checkAnswer(this);
                 });
